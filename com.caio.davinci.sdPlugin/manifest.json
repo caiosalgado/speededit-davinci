@@ -1,0 +1,122 @@
+{
+	"Name": "davinci",
+	"Version": "0.1.0.0",
+	"Author": "Caio",
+	"Actions": [
+		{
+			"Name": "Counter",
+			"UUID": "com.caio.davinci.increment",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Displays a count, which increments by one on press.",
+			"PropertyInspectorPath": "ui/increment-counter.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Cut Clip",
+			"UUID": "com.caio.davinci.cut-clip",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Cut clip in DaVinci Resolve (Cmd+B)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Magnetic Toggle",
+			"UUID": "com.caio.davinci.magnetic-toggle",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Toggle magnetic on/off in DaVinci Resolve",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Zoom Control",
+			"UUID": "com.caio.davinci.zoom-control",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Zoom in/out control for DaVinci Resolve (Cmd+/Cmd-)",
+			"Controllers": [
+				"Encoder"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Zoom Out",
+			"UUID": "com.caio.davinci.zoom-out",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Zoom out in DaVinci Resolve (Cmd+-)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Zoom In",
+			"UUID": "com.caio.davinci.zoom-in",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Zoom in in DaVinci Resolve (Cmd+=)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		}
+	],
+	"Category": "davinci",
+	"CategoryIcon": "imgs/plugin/category-icon",
+	"CodePath": "bin/plugin.js",
+	"Description": "mcp-to-davinci",
+	"Icon": "imgs/plugin/marketplace",
+	"SDKVersion": 2,
+	"Software": {
+		"MinimumVersion": "6.5"
+	},
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "12"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Nodejs": {
+		"Version": "20",
+		"Debug": "enabled"
+	},
+	"UUID": "com.caio.davinci"
+}
