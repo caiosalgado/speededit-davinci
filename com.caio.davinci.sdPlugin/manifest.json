@@ -1,24 +1,8 @@
 {
-	"Name": "davinci",
+	"Name": "SpeedEdit for DaVinci",
 	"Version": "0.1.0.0",
 	"Author": "Caio",
 	"Actions": [
-		{
-			"Name": "Counter",
-			"UUID": "com.caio.davinci.increment",
-			"Icon": "imgs/actions/counter/icon",
-			"Tooltip": "Displays a count, which increments by one on press.",
-			"PropertyInspectorPath": "ui/increment-counter.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/counter/key",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
 		{
 			"Name": "Cut Clip",
 			"UUID": "com.caio.davinci.cut-clip",
@@ -64,36 +48,6 @@
 			"States": [
 				{
 					"Image": "imgs/actions/dials/zoom-control/icon",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
-			"Name": "Zoom Out",
-			"UUID": "com.caio.davinci.zoom-out",
-			"Icon": "imgs/actions/counter/icon",
-			"Tooltip": "Zoom out in DaVinci Resolve (Cmd+-)",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/counter/key",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
-			"Name": "Zoom In",
-			"UUID": "com.caio.davinci.zoom-in",
-			"Icon": "imgs/actions/counter/icon",
-			"Tooltip": "Zoom in in DaVinci Resolve (Cmd+=)",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/counter/key",
 					"TitleAlignment": "middle"
 				}
 			]
@@ -238,10 +192,10 @@
 			]
 		},
 		{
-			"Name": "Cut Delete Right",
+			"Name": "Ripple Trim End",
 			"UUID": "com.caio.davinci.cut-delete-right",
 			"Icon": "imgs/actions/buttons/cut-delete-right/icon",
-			"Tooltip": "Cut and delete to the right (Cmd + Shift + ])",
+			"Tooltip": "Ripple trim end to playhead (Cmd+Shift+])",
 			"Controllers": [
 				"Keypad"
 			],
@@ -253,10 +207,10 @@
 			]
 		},
 		{
-			"Name": "Cut Delete Left",
+			"Name": "Ripple Trim Start",
 			"UUID": "com.caio.davinci.cut-delete-left",
 			"Icon": "imgs/actions/buttons/cut-delete-left/icon",
-			"Tooltip": "Cut and delete to the left (Cmd + Shift + [)",
+			"Tooltip": "Ripple trim start to playhead (Cmd+Shift+[)",
 			"Controllers": [
 				"Keypad"
 			],
@@ -266,27 +220,12 @@
 					"TitleAlignment": "middle"
 				}
 			]
-		},
-		{
-			"Name": "Retime",
-			"UUID": "com.caio.davinci.retime",
-			"Icon": "imgs/actions/counter/icon",
-			"Tooltip": "Open retime controls (Cmd + R)",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/counter/key",
-					"TitleAlignment": "middle"
-				}
-			]
 		}
 	],
-	"Category": "davinci",
+	"Category": "DaVinci SpeedEdit",
 	"CategoryIcon": "imgs/plugin/category-icon",
 	"CodePath": "bin/plugin.js",
-	"Description": "mcp-to-davinci",
+	"Description": "Essential Stream Deck + profile for DaVinci Resolve. Unlock pro-studio fluidity with smart dials and one-tap buttons. Edit up to 3x faster with plug & play setup. macOS-only for now.",
 	"Icon": "imgs/plugin/marketplace",
 	"SDKVersion": 2,
 	"Software": {
@@ -296,15 +235,11 @@
 		{
 			"Platform": "mac",
 			"MinimumVersion": "12"
-		},
-		{
-			"Platform": "windows",
-			"MinimumVersion": "10"
 		}
 	],
 	"Nodejs": {
 		"Version": "20",
-		"Debug": "enabled"
+		"Debug": "disabled"
 	},
 	"UUID": "com.caio.davinci"
 }

@@ -4,8 +4,7 @@ import streamDeck, { LogLevel } from "@elgato/streamdeck";
 import { CutClip } from "./actions/cut-clip";
 import { MagneticToggle } from "./actions/magnetic-toggle";
 import { ZoomControl } from "./actions/zoom-control";
-import { ZoomOut } from "./actions/zoom-out";
-import { ZoomIn } from "./actions/zoom-in";
+
 import { PlayheadControl } from "./actions/playhead-control";
 import { DisableClip } from "./actions/disable-clip";
 import { EditPointsControl } from "./actions/edit-points-control";
@@ -17,7 +16,7 @@ import { SelectRight } from "./actions/select-right";
 import { SelectLeft } from "./actions/select-left";
 import { CutDeleteRight } from "./actions/cut-delete-right";
 import { CutDeleteLeft } from "./actions/cut-delete-left";
-import { Retime } from "./actions/retime";
+
 
 // We can enable "trace" logging so that all messages between the Stream Deck, and the plugin are recorded. When storing sensitive information
 streamDeck.logger.setLevel(LogLevel.TRACE);
@@ -26,8 +25,7 @@ streamDeck.logger.setLevel(LogLevel.TRACE);
 streamDeck.actions.registerAction(new CutClip());
 streamDeck.actions.registerAction(new MagneticToggle());
 streamDeck.actions.registerAction(new ZoomControl());
-streamDeck.actions.registerAction(new ZoomOut());
-streamDeck.actions.registerAction(new ZoomIn());
+
 streamDeck.actions.registerAction(new PlayheadControl());
 streamDeck.actions.registerAction(new DisableClip());
 streamDeck.actions.registerAction(new EditPointsControl());
@@ -39,7 +37,7 @@ streamDeck.actions.registerAction(new SelectRight());
 streamDeck.actions.registerAction(new SelectLeft());
 streamDeck.actions.registerAction(new CutDeleteRight());
 streamDeck.actions.registerAction(new CutDeleteLeft());
-streamDeck.actions.registerAction(new Retime());
+
 
 // Finally, connect to the Stream Deck.
 streamDeck.connect();

@@ -2,7 +2,6 @@ import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from "@elgato/
 import streamDeck from "@elgato/streamdeck";
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { sendKeyCommand } from "../utils/keyboard";
 
 const execAsync = promisify(exec);
 
@@ -23,10 +22,14 @@ export class CutDeleteRight extends SingletonAction {
 	 */
 	override async onKeyDown(ev: KeyDownEvent): Promise<void> {
 		try {
-			streamDeck.logger.info("CutDeleteRight: Sending Cmd + Shift + ]");
+			streamDeck.logger.info("CutDeleteRight: Sending Cmd + Shift + ] (key code 30)");
 			
-			// Send Cmd + Shift + ] to cut and delete right (using key code 30 for right bracket)
-			await sendKeyCommand(String.fromCharCode(30), ["command", "shift"]);
+			// First ensure DaVinci Resolve is focused
+			await execAsync(`osascript -e 'tell application "DaVinci Resolve" to activate'`);
+			await new Promise(resolve => setTimeout(resolve, 100));
+			
+			// Send Cmd + Shift + ] using key code 30 for right bracket
+			await execAsync(`osascript -e 'tell application "System Events" to key code 30 using {command down, shift down}'`);
 			
 			streamDeck.logger.info("CutDeleteRight: Command sent successfully");
 		} catch (error) {

@@ -2,7 +2,6 @@ import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from "@elgato/
 import streamDeck from "@elgato/streamdeck";
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { sendKeyCommand } from "../utils/keyboard";
 
 const execAsync = promisify(exec);
 
@@ -25,8 +24,12 @@ export class MoveClipUp extends SingletonAction {
 		try {
 			streamDeck.logger.info("MoveClipUp: Sending Option + Up Arrow");
 			
-			// Send Option + Up Arrow to move clip up (using key code 126 for up arrow)
-			await sendKeyCommand(String.fromCharCode(126), ["option"]);
+			// Focus DaVinci Resolve
+			await execAsync(`osascript -e 'tell application "DaVinci Resolve" to activate'`);
+			await new Promise(resolve => setTimeout(resolve, 100));
+			
+			// Send Option + Up Arrow using key code 126 for up arrow
+			await execAsync(`osascript -e 'tell application "System Events" to key code 126 using option down'`);
 			
 			streamDeck.logger.info("MoveClipUp: Command sent successfully");
 		} catch (error) {

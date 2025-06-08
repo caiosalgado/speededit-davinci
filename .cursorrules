@@ -67,12 +67,44 @@ export class MyButtonAction extends SingletonAction {
 
 ## ⌨️ KEYBOARD COMMANDS
 
-### Key Codes vs Keystroke
-- **Use key codes for special characters**: `-` (27), `=` (24)
+### Key Codes vs Keystroke - CRITICAL FOR FUNCTIONALITY
+- **Use key codes for special characters**: `-` (27), `=` (24), `[` (33), `]` (30)
+- **Use key codes for arrow keys**: Up (126), Down (125), Left (123), Right (124)
 - **Use keystroke for letters**: `b`, `u`, etc.
 
+### ❌ NEVER USE String.fromCharCode() with key codes
 ```typescript
-// ✅ CORRECT: sendCommandKey implementation
+// ❌ WRONG: This will NOT work - produces wrong characters
+await sendKeyCommand(String.fromCharCode(126), ["option"]); // Produces ~ instead of Up arrow
+await sendKeyCommand(String.fromCharCode(33), ["command", "shift"]); // Produces ! instead of [
+
+// ✅ CORRECT: Use key codes directly in AppleScript
+await execAsync(`osascript -e 'tell application "System Events" to key code 126 using option down'`);
+await execAsync(`osascript -e 'tell application "System Events" to key code 33 using {command down, shift down}'`);
+```
+
+### ✅ CORRECT Implementation Pattern
+```typescript
+// For any special key combinations, use this pattern:
+override async onKeyDown(ev: KeyDownEvent): Promise<void> {
+    try {
+        // 1. Focus DaVinci Resolve first
+        await execAsync(`osascript -e 'tell application "DaVinci Resolve" to activate'`);
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // 2. Use key code directly in AppleScript
+        await execAsync(`osascript -e 'tell application "System Events" to key code [KEY_CODE] using [MODIFIERS]'`);
+        
+        streamDeck.logger.info("Command sent successfully");
+    } catch (error) {
+        streamDeck.logger.error("Error:", error);
+    }
+}
+```
+
+### sendCommandKey - Only for Simple Cases
+```typescript
+// ✅ CORRECT: sendCommandKey implementation (only for simple cases)
 export async function sendCommandKey(key: string): Promise<void> {
     try {
         await execAsync(`osascript -e 'tell application "DaVinci Resolve" to activate'`);
@@ -199,6 +231,12 @@ await new Promise(resolve => setTimeout(resolve, 100));
 ## 📚 COMMON KEY CODES
 - **Minus (-)**: 27
 - **Equal (=)**: 24  
+- **Left Bracket ([)**: 33
+- **Right Bracket (])**: 30
+- **Up Arrow**: 126
+- **Down Arrow**: 125
+- **Left Arrow**: 123
+- **Right Arrow**: 124
 - **Backslash (\\)**: 42
 - **Semicolon (;)**: 41
 - **Quote (')**: 39
