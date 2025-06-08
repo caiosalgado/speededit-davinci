@@ -1,6 +1,6 @@
-import { action, DialRotateEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
+import { action, DialDownEvent, DialRotateEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
 import streamDeck from "@elgato/streamdeck";
-import { sendCommandKey } from "../utils/keyboard";
+import { sendCommandKey, sendKeyCommand } from "../utils/keyboard";
 
 /**
  * Action for zoom control using dial rotation (Cmd + / Cmd -) in DaVinci Resolve
@@ -65,6 +65,44 @@ export class ZoomControl extends SingletonAction {
 				}, 800);
 			} catch (error) {
 				streamDeck.logger.error("Error in zoom control:", error);
+				if (ev.action.isDial()) {
+					await ev.action.setFeedback({
+						title: "Error",
+						value: "!"
+					});
+				}
+			}
+		}
+	}
+
+	/**
+	 * Handle dial press for fit to window (Shift + Z)
+	 */
+	override async onDialDown(ev: DialDownEvent): Promise<void> {
+		if (ev.action.isDial()) {
+			try {
+				streamDeck.logger.info("ZoomControl: Dial pressed - fit to window (Shift + Z)");
+				
+				// Send Shift + Z for fit to window
+				await sendKeyCommand("z", ["shift"]);
+				
+				// Visual feedback
+				await ev.action.setFeedback({
+					title: "Fit Window",
+					value: "100%"
+				});
+
+				// Reset feedback after delay
+				setTimeout(async () => {
+					if (ev.action.isDial()) {
+						await ev.action.setFeedback({
+							title: "Zoom",
+							value: "Ready"
+						});
+					}
+				}, 1000);
+			} catch (error) {
+				streamDeck.logger.error("Error in dial press:", error);
 				if (ev.action.isDial()) {
 					await ev.action.setFeedback({
 						title: "Error",

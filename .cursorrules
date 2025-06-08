@@ -1,0 +1,253 @@
+# Stream Deck Plugin Development Rules
+
+## 🎛️ DIAL vs BUTTON Implementation
+
+### DIAL (Encoder) Events
+- **Use for rotation**: `onDialRotate(ev: DialRotateEvent)`
+- **Check direction**: `ev.payload.ticks > 0` (up/clockwise) or `ev.payload.ticks < 0` (down/counter-clockwise)
+- **Controller type**: `"Encoder"` in manifest.json
+- **Feedback method**: `ev.action.setFeedback()` with title and value
+
+```typescript
+// ✅ CORRECT: Dial implementation
+import { action, DialRotateEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
+
+@action({ UUID: "com.example.dial-action" })
+export class MyDialAction extends SingletonAction {
+    override async onDialRotate(ev: DialRotateEvent): Promise<void> {
+        if (ev.action.isDial()) {
+            const ticks = ev.payload.ticks;
+            const isUp = ticks > 0;
+            
+            if (isUp) {
+                // Action for rotating up/clockwise
+                await sendCommandKey("=");
+                await ev.action.setFeedback({
+                    title: "Action Up",
+                    value: "+"
+                });
+            } else {
+                // Action for rotating down/counter-clockwise
+                await sendCommandKey("-");
+                await ev.action.setFeedback({
+                    title: "Action Down", 
+                    value: "-"
+                });
+            }
+        }
+    }
+}
+```
+
+### BUTTON (Keypad) Events
+- **Use for press**: `onKeyDown(ev: KeyDownEvent)`
+- **Controller type**: `"Keypad"` in manifest.json
+- **Feedback method**: `ev.action.setTitle()`
+
+```typescript
+// ✅ CORRECT: Button implementation
+import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
+
+@action({ UUID: "com.example.button-action" })
+export class MyButtonAction extends SingletonAction {
+    override async onKeyDown(ev: KeyDownEvent): Promise<void> {
+        try {
+            await sendCommandKey("b");
+            await ev.action.setTitle("Pressed!");
+            
+            setTimeout(async () => {
+                await ev.action.setTitle("My Button");
+            }, 1000);
+        } catch (error) {
+            streamDeck.logger.error("Error:", error);
+        }
+    }
+}
+```
+
+## ⌨️ KEYBOARD COMMANDS
+
+### Key Codes vs Keystroke
+- **Use key codes for special characters**: `-` (27), `=` (24)
+- **Use keystroke for letters**: `b`, `u`, etc.
+
+```typescript
+// ✅ CORRECT: sendCommandKey implementation
+export async function sendCommandKey(key: string): Promise<void> {
+    try {
+        await execAsync(`osascript -e 'tell application "DaVinci Resolve" to activate'`);
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        let script = '';
+        
+        if (key === '-') {
+            script = `tell application "System Events" to key code 27 using command down`;
+        } else if (key === '=') {
+            script = `tell application "System Events" to key code 24 using command down`;
+        } else {
+            script = `tell application "System Events" to keystroke "${key}" using command down`;
+        }
+        
+        streamDeck.logger.info(`Executing AppleScript: ${script}`);
+        await execAsync(`osascript -e '${script}'`);
+    } catch (error) {
+        streamDeck.logger.error('Error sending command key:', error);
+        throw error;
+    }
+}
+```
+
+## 📝 LOGGING
+
+### Always use Stream Deck Logger
+```typescript
+// ✅ CORRECT: Use streamDeck.logger
+import streamDeck from "@elgato/streamdeck";
+
+streamDeck.logger.info("Action executed");
+streamDeck.logger.error("Error occurred:", error);
+streamDeck.logger.warn("Warning message");
+
+// ❌ WRONG: Don't use console.log
+console.log("This won't appear in logs");
+```
+
+### Log Location
+- **Logs are saved in**: `com.{plugin-name}.sdPlugin/logs/com.{plugin-name}.0.log`
+- **Monitor logs**: `tail -f com.{plugin-name}.sdPlugin/logs/com.{plugin-name}.0.log`
+
+## 📁 FILE STRUCTURE
+
+### Required Files for New Action
+1. **Action file**: `src/actions/my-action.ts`
+2. **Register in plugin**: `src/plugin.ts`
+3. **Add to manifest**: `com.{plugin-name}.sdPlugin/manifest.json`
+
+### Plugin Registration
+```typescript
+// src/plugin.ts
+import { MyAction } from "./actions/my-action";
+
+streamDeck.actions.registerAction(new MyAction());
+```
+
+### Manifest Entry
+```json
+// com.{plugin-name}.sdPlugin/manifest.json
+{
+    "Name": "My Action",
+    "UUID": "com.example.my-action",
+    "Icon": "imgs/actions/icon",
+    "Tooltip": "Description of action",
+    "Controllers": ["Keypad"], // or ["Encoder"] for dials
+    "States": [{
+        "Image": "imgs/actions/key",
+        "TitleAlignment": "middle"
+    }]
+}
+```
+
+## 🔧 DEBUGGING
+
+### Enable Debug Mode
+```json
+// manifest.json
+{
+    "Nodejs": {
+        "Version": "20",
+        "Debug": "enabled"
+    }
+}
+```
+
+### Common Issues
+- **Events not triggering**: Check if using correct event type (dialRotate vs dialUp/dialDown)
+- **Logs not appearing**: Use `streamDeck.logger` instead of `console.log`
+- **Commands not working**: Verify key codes for special characters
+- **Action not appearing**: Check registration in plugin.ts and manifest.json
+
+## 🎯 BEST PRACTICES
+
+### Error Handling
+```typescript
+override async onKeyDown(ev: KeyDownEvent): Promise<void> {
+    try {
+        // Action logic here
+        streamDeck.logger.info("Action executed successfully");
+    } catch (error) {
+        streamDeck.logger.error("Error in action:", error);
+        await ev.action.setTitle("Error!");
+        setTimeout(async () => {
+            await ev.action.setTitle("Original Title");
+        }, 2000);
+    }
+}
+```
+
+### Visual Feedback
+- **Buttons**: Use `setTitle()` for immediate feedback
+- **Dials**: Use `setFeedback()` with title and value
+- **Reset feedback**: Always reset after a delay
+
+### Application Focus
+```typescript
+// Always ensure target app is focused before sending commands
+await execAsync(`osascript -e 'tell application "DaVinci Resolve" to activate'`);
+await new Promise(resolve => setTimeout(resolve, 100));
+```
+
+## 📚 COMMON KEY CODES
+- **Minus (-)**: 27
+- **Equal (=)**: 24  
+- **Backslash (\\)**: 42
+- **Semicolon (;)**: 41
+- **Quote (')**: 39
+
+## 🚫 COMMON MISTAKES
+
+### ❌ Wrong Event Types
+```typescript
+// WRONG: Using dialUp/dialDown for rotation
+override async onDialUp(ev: DialUpEvent) // This won't trigger on rotation
+
+// CORRECT: Using dialRotate for rotation  
+override async onDialRotate(ev: DialRotateEvent)
+```
+
+### ❌ Wrong Logging
+```typescript
+// WRONG: Console logging
+console.log("This won't appear in Stream Deck logs");
+
+// CORRECT: Stream Deck logging
+streamDeck.logger.info("This will appear in logs");
+```
+
+### ❌ Missing Type Check
+```typescript
+// WRONG: Not checking if it's a dial
+override async onDialRotate(ev: DialRotateEvent) {
+    await ev.action.setFeedback(); // May fail if not a dial
+}
+
+// CORRECT: Always check type
+override async onDialRotate(ev: DialRotateEvent) {
+    if (ev.action.isDial()) {
+        await ev.action.setFeedback();
+    }
+}
+```
+
+## 🔄 DEVELOPMENT WORKFLOW
+
+1. **Create action file** in `src/actions/`
+2. **Import and register** in `src/plugin.ts`
+3. **Add to manifest** in `.sdPlugin/manifest.json`
+4. **Run watch mode**: `npm run watch`
+5. **Monitor logs**: `tail -f com.{plugin-name}.sdPlugin/logs/com.{plugin-name}.0.log`
+6. **Test in Stream Deck**
+7. **Debug with logs** using `streamDeck.logger`
+
+---
+
+**Remember**: Dials use `dialRotate` events, buttons use `keyDown` events. Always use Stream Deck logger and check action types! 

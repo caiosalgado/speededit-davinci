@@ -93,6 +93,81 @@
 					"TitleAlignment": "middle"
 				}
 			]
+		},
+		{
+			"Name": "Playhead Control",
+			"UUID": "com.caio.davinci.playhead-control",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Move playhead left/right with dial. Press to toggle fast mode.",
+			"Controllers": [
+				"Encoder"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Disable Clip",
+			"UUID": "com.caio.davinci.disable-clip",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Disable clip in DaVinci Resolve (D key)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Edit Points Control",
+			"UUID": "com.caio.davinci.edit-points-control",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Control edit points in DaVinci Resolve. Click: Toggle edit mode (U). Rotate: Move between edit points (Shift+,/.).",
+			"Controllers": [
+				"Encoder"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Trim/Selection Toggle",
+			"UUID": "com.caio.davinci.trim-clip",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Toggle between Trim Mode (T) and Selection Mode (A) in DaVinci Resolve",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Jump Control",
+			"UUID": "com.caio.davinci.jump-control",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Jump navigation in DaVinci Resolve. Rotate: Up/Down Arrow. Press: V mode.",
+			"Controllers": [
+				"Encoder"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
 		}
 	],
 	"Category": "davinci",
