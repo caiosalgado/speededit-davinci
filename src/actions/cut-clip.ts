@@ -1,4 +1,4 @@
-import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
+import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
 import { sendCommandKey } from "../utils/keyboard";
 
 /**
@@ -7,6 +7,13 @@ import { sendCommandKey } from "../utils/keyboard";
 @action({ UUID: "com.caio.davinci.cut-clip" })
 export class CutClip extends SingletonAction {
 	/**
+	 * Clear title when action appears to prevent text overlay on icon
+	 */
+	override async onWillAppear(ev: WillAppearEvent): Promise<void> {
+		await ev.action.setTitle("");
+	}
+
+	/**
 	 * Sends Command + B when the action is pressed to cut clip in DaVinci Resolve
 	 */
 	override async onKeyDown(ev: KeyDownEvent): Promise<void> {
@@ -14,19 +21,9 @@ export class CutClip extends SingletonAction {
 			// Send Command + B to DaVinci Resolve
 			await sendCommandKey("b");
 			
-			// Visual feedback
-			await ev.action.setTitle("Cut!");
-			
-			// Reset title after a short delay
-			setTimeout(async () => {
-				await ev.action.setTitle("Cut Clip");
-			}, 1000);
+			// Visual feedback removed - just use the icon
 		} catch (error) {
 			console.error("Error sending cut clip command:", error);
-			await ev.action.setTitle("Error!");
-			setTimeout(async () => {
-				await ev.action.setTitle("Cut Clip");
-			}, 2000);
 		}
 	}
 } 

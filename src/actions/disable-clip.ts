@@ -1,4 +1,4 @@
-import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
+import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
 import streamDeck from "@elgato/streamdeck";
 import { sendKeyWithFocus } from "../utils/keyboard";
 
@@ -7,6 +7,13 @@ import { sendKeyWithFocus } from "../utils/keyboard";
  */
 @action({ UUID: "com.caio.davinci.disable-clip" })
 export class DisableClip extends SingletonAction {
+	/**
+	 * Clear title when action appears to prevent text overlay on icon
+	 */
+	override async onWillAppear(ev: WillAppearEvent): Promise<void> {
+		await ev.action.setTitle("");
+	}
+
 	/**
 	 * Sends D when the action is pressed to disable clip in DaVinci Resolve
 	 */
@@ -19,19 +26,9 @@ export class DisableClip extends SingletonAction {
 			
 			streamDeck.logger.info("DisableClip: Key sent successfully");
 			
-			// Visual feedback
-			await ev.action.setTitle("Disabled!");
-			
-			// Reset title after a short delay
-			setTimeout(async () => {
-				await ev.action.setTitle("Disable");
-			}, 1000);
+			// Visual feedback removed - just use the icon
 		} catch (error) {
 			streamDeck.logger.error("Error sending disable clip command:", error);
-			await ev.action.setTitle("Error!");
-			setTimeout(async () => {
-				await ev.action.setTitle("Disable");
-			}, 2000);
 		}
 	}
 } 

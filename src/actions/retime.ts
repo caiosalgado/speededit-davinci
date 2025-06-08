@@ -3,10 +3,10 @@ import streamDeck from "@elgato/streamdeck";
 import { sendCommandKey } from "../utils/keyboard";
 
 /**
- * Action for zoom out in DaVinci Resolve using Cmd + -
+ * Action for retime in DaVinci Resolve using Cmd + R
  */
-@action({ UUID: "com.caio.davinci.zoom-out" })
-export class ZoomOut extends SingletonAction {
+@action({ UUID: "com.caio.davinci.retime" })
+export class Retime extends SingletonAction {
 	/**
 	 * Clear title when action appears to prevent text overlay on icon
 	 */
@@ -15,18 +15,18 @@ export class ZoomOut extends SingletonAction {
 	}
 
 	/**
-	 * Sends Cmd + - (minus) to zoom out
+	 * Sends Cmd + R to open retime controls
 	 */
 	override async onKeyDown(ev: KeyDownEvent): Promise<void> {
 		try {
-			streamDeck.logger.info("ZoomOut: Sending Cmd + - (zoom out)");
+			streamDeck.logger.info("Retime: Sending Cmd + R");
 			
-			// Send Cmd + - for zoom out (using key code 27 for minus)
-			await sendCommandKey("-");
+			// Send Cmd + R for retime
+			await sendCommandKey("r");
 			
-			streamDeck.logger.info("ZoomOut: Command sent successfully");
+			streamDeck.logger.info("Retime: Command sent successfully");
 		} catch (error) {
-			streamDeck.logger.error("Error sending zoom out command:", error);
+			streamDeck.logger.error("Error opening retime controls:", error);
 		}
 	}
 } 

@@ -9,6 +9,10 @@ const execAsync = promisify(exec);
  */
 export async function sendKeyCommand(key: string, modifiers: string[] = []): Promise<void> {
     try {
+        // First ensure DaVinci Resolve is focused
+        await execAsync(`osascript -e 'tell application "DaVinci Resolve" to activate'`);
+        await new Promise(resolve => setTimeout(resolve, 100)); // Small delay
+        
         let modifierString = '';
         
         // Handle modifier keys (can be combined)
@@ -30,6 +34,7 @@ export async function sendKeyCommand(key: string, modifiers: string[] = []): Pro
         // Create AppleScript command
         const script = `tell application "System Events" to keystroke "${key}" using {${modifierString}}`;
         
+        streamDeck.logger.info(`Executing AppleScript: ${script}`);
         // Execute the command
         await execAsync(`osascript -e '${script}'`);
         
@@ -44,7 +49,12 @@ export async function sendKeyCommand(key: string, modifiers: string[] = []): Pro
  */
 export async function sendKey(key: string): Promise<void> {
     try {
+        // First ensure DaVinci Resolve is focused
+        await execAsync(`osascript -e 'tell application "DaVinci Resolve" to activate'`);
+        await new Promise(resolve => setTimeout(resolve, 100)); // Small delay
+        
         const script = `tell application "System Events" to keystroke "${key}"`;
+        streamDeck.logger.info(`Executing AppleScript: ${script}`);
         await execAsync(`osascript -e '${script}'`);
     } catch (error) {
         streamDeck.logger.error('Error sending key:', error);

@@ -22,14 +22,14 @@
 		{
 			"Name": "Cut Clip",
 			"UUID": "com.caio.davinci.cut-clip",
-			"Icon": "imgs/actions/counter/icon",
+			"Icon": "imgs/actions/buttons/cut-clip/icon",
 			"Tooltip": "Cut clip in DaVinci Resolve (Cmd+B)",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/counter/key",
+					"Image": "imgs/actions/buttons/cut-clip/icon",
 					"TitleAlignment": "middle"
 				}
 			]
@@ -37,14 +37,18 @@
 		{
 			"Name": "Magnetic Toggle",
 			"UUID": "com.caio.davinci.magnetic-toggle",
-			"Icon": "imgs/actions/counter/icon",
+			"Icon": "imgs/actions/buttons/magnet/icon_on",
 			"Tooltip": "Toggle magnetic on/off in DaVinci Resolve",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/counter/key",
+					"Image": "imgs/actions/buttons/magnet/icon_off",
+					"TitleAlignment": "middle"
+				},
+				{
+					"Image": "imgs/actions/buttons/magnet/icon_on",
 					"TitleAlignment": "middle"
 				}
 			]
@@ -52,14 +56,14 @@
 		{
 			"Name": "Zoom Control",
 			"UUID": "com.caio.davinci.zoom-control",
-			"Icon": "imgs/actions/counter/icon",
+			"Icon": "imgs/actions/dials/zoom-control/icon",
 			"Tooltip": "Zoom in/out control for DaVinci Resolve (Cmd+/Cmd-)",
 			"Controllers": [
 				"Encoder"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/counter/key",
+					"Image": "imgs/actions/dials/zoom-control/icon",
 					"TitleAlignment": "middle"
 				}
 			]
@@ -97,14 +101,14 @@
 		{
 			"Name": "Playhead Control",
 			"UUID": "com.caio.davinci.playhead-control",
-			"Icon": "imgs/actions/counter/icon",
+			"Icon": "imgs/actions/dials/playhead-control/icon",
 			"Tooltip": "Move playhead left/right with dial. Press to toggle fast mode.",
 			"Controllers": [
 				"Encoder"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/counter/key",
+					"Image": "imgs/actions/dials/playhead-control/icon",
 					"TitleAlignment": "middle"
 				}
 			]
@@ -112,14 +116,14 @@
 		{
 			"Name": "Disable Clip",
 			"UUID": "com.caio.davinci.disable-clip",
-			"Icon": "imgs/actions/counter/icon",
+			"Icon": "imgs/actions/buttons/disable-clip/icon",
 			"Tooltip": "Disable clip in DaVinci Resolve (D key)",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/counter/key",
+					"Image": "imgs/actions/buttons/disable-clip/icon",
 					"TitleAlignment": "middle"
 				}
 			]
@@ -127,14 +131,14 @@
 		{
 			"Name": "Edit Points Control",
 			"UUID": "com.caio.davinci.edit-points-control",
-			"Icon": "imgs/actions/counter/icon",
+			"Icon": "imgs/actions/dials/edit-points-control/icon",
 			"Tooltip": "Control edit points in DaVinci Resolve. Click: Toggle edit mode (U). Rotate: Move between edit points (Shift+,/.).",
 			"Controllers": [
 				"Encoder"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/counter/key",
+					"Image": "imgs/actions/dials/edit-points-control/icon",
 					"TitleAlignment": "middle"
 				}
 			]
@@ -142,14 +146,18 @@
 		{
 			"Name": "Trim/Selection Toggle",
 			"UUID": "com.caio.davinci.trim-clip",
-			"Icon": "imgs/actions/counter/icon",
+			"Icon": "imgs/actions/buttons/trim-selection-toggle/icon_t",
 			"Tooltip": "Toggle between Trim Mode (T) and Selection Mode (A) in DaVinci Resolve",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/counter/key",
+					"Image": "imgs/actions/buttons/trim-selection-toggle/icont_a",
+					"TitleAlignment": "middle"
+				},
+				{
+					"Image": "imgs/actions/buttons/trim-selection-toggle/icon_t",
 					"TitleAlignment": "middle"
 				}
 			]
@@ -157,10 +165,115 @@
 		{
 			"Name": "Jump Control",
 			"UUID": "com.caio.davinci.jump-control",
-			"Icon": "imgs/actions/counter/icon",
+			"Icon": "imgs/actions/dials/jump-control/icon",
 			"Tooltip": "Jump navigation in DaVinci Resolve. Rotate: Up/Down Arrow. Press: V mode.",
 			"Controllers": [
 				"Encoder"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/dials/jump-control/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Move Clip Up",
+			"UUID": "com.caio.davinci.move-clip-up",
+			"Icon": "imgs/actions/buttons/move-clip-up/icon",
+			"Tooltip": "Move clip up in timeline (Option + Up Arrow)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/move-clip-up/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Move Clip Down",
+			"UUID": "com.caio.davinci.move-clip-down",
+			"Icon": "imgs/actions/buttons/move-clip-down/icon",
+			"Tooltip": "Move clip down in timeline (Option + Down Arrow)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/move-clip-down/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Select Right",
+			"UUID": "com.caio.davinci.select-right",
+			"Icon": "imgs/actions/buttons/select-right/icon",
+			"Tooltip": "Select all clips to the right (Option + Y)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/select-right/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Select Left",
+			"UUID": "com.caio.davinci.select-left",
+			"Icon": "imgs/actions/buttons/select-left/icon",
+			"Tooltip": "Select all clips to the left (Option + Cmd + Y)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/select-left/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Cut Delete Right",
+			"UUID": "com.caio.davinci.cut-delete-right",
+			"Icon": "imgs/actions/buttons/cut-delete-right/icon",
+			"Tooltip": "Cut and delete to the right (Cmd + Shift + ])",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/cut-delete-right/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Cut Delete Left",
+			"UUID": "com.caio.davinci.cut-delete-left",
+			"Icon": "imgs/actions/buttons/cut-delete-left/icon",
+			"Tooltip": "Cut and delete to the left (Cmd + Shift + [)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/cut-delete-left/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Retime",
+			"UUID": "com.caio.davinci.retime",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Open retime controls (Cmd + R)",
+			"Controllers": [
+				"Keypad"
 			],
 			"States": [
 				{

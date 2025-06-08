@@ -1,34 +1,32 @@
-import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
-import { sendKey } from "../utils/keyboard";
+import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
+import streamDeck from "@elgato/streamdeck";
+import { sendKeyWithFocus } from "../utils/keyboard";
 
 /**
- * Action to toggle magnetic on/off in DaVinci Resolve
+ * Action for magnetic timeline toggle in DaVinci Resolve using N key
  */
 @action({ UUID: "com.caio.davinci.magnetic-toggle" })
 export class MagneticToggle extends SingletonAction {
 	/**
-	 * Toggles magnetic on/off when pressed
-	 * Note: You may need to map this to a specific key in DaVinci Resolve preferences
+	 * Clear title when action appears to prevent text overlay on icon
+	 */
+	override async onWillAppear(ev: WillAppearEvent): Promise<void> {
+		await ev.action.setTitle("");
+	}
+
+	/**
+	 * Sends N key to toggle magnetic timeline
 	 */
 	override async onKeyDown(ev: KeyDownEvent): Promise<void> {
 		try {
-			// Send a key to toggle magnetic (you may need to configure this in DaVinci)
-			// This is typically mapped to 'N' key in DaVinci Resolve
-			await sendKey("n");
+			streamDeck.logger.info("MagneticToggle: Sending N key");
 			
-			// Visual feedback
-			await ev.action.setTitle("Magnetic!");
+			// Send N key to toggle magnetic timeline
+			await sendKeyWithFocus("n");
 			
-			// Reset title after a short delay
-			setTimeout(async () => {
-				await ev.action.setTitle("Magnetic");
-			}, 1000);
+			streamDeck.logger.info("MagneticToggle: Command sent successfully");
 		} catch (error) {
-			console.error("Error sending magnetic toggle command:", error);
-			await ev.action.setTitle("Error!");
-			setTimeout(async () => {
-				await ev.action.setTitle("Magnetic");
-			}, 2000);
+			streamDeck.logger.error("Error toggling magnetic timeline:", error);
 		}
 	}
 } 

@@ -3,56 +3,40 @@ import streamDeck from "@elgato/streamdeck";
 import { sendKeyWithFocus } from "../utils/keyboard";
 
 /**
- * Action to toggle between Trim Mode (T) and Selection Mode (A) in DaVinci Resolve
+ * Action to toggle between trim and selection modes in DaVinci Resolve
+ * Alternates between T (trim) and A (selection) keys
  */
 @action({ UUID: "com.caio.davinci.trim-clip" })
 export class TrimClip extends SingletonAction {
-	private isTrimMode = false; // Start in Selection Mode
-	
+	private currentMode: 'trim' | 'selection' = 'selection';
+
+	/**
+	 * Clear title when action appears to prevent text overlay on icon
+	 */
 	override async onWillAppear(ev: WillAppearEvent): Promise<void> {
-		// Set initial title
-		await ev.action.setTitle("Selection");
+		await ev.action.setTitle("");
 	}
 
 	/**
-	 * Toggles between Trim Mode (T) and Selection Mode (A)
+	 * Toggles between trim (T) and selection (A) modes
 	 */
 	override async onKeyDown(ev: KeyDownEvent): Promise<void> {
 		try {
-			if (this.isTrimMode) {
-				// Currently in Trim Mode, switch to Selection Mode
-				streamDeck.logger.info("TrimClip: Switching to Selection Mode (A key)");
-				await sendKeyWithFocus("a");
-				
-				await ev.action.setTitle("Selection!");
-				this.isTrimMode = false;
-				
-				// Reset title after delay
-				setTimeout(async () => {
-					await ev.action.setTitle("Selection");
-				}, 1000);
-			} else {
-				// Currently in Selection Mode, switch to Trim Mode
-				streamDeck.logger.info("TrimClip: Switching to Trim Mode (T key)");
+			if (this.currentMode === 'selection') {
+				// Switch to trim mode
+				streamDeck.logger.info("TrimClip: Switching to trim mode (T)");
 				await sendKeyWithFocus("t");
-				
-				await ev.action.setTitle("Trim!");
-				this.isTrimMode = true;
-				
-				// Reset title after delay
-				setTimeout(async () => {
-					await ev.action.setTitle("Trim");
-				}, 1000);
+				this.currentMode = 'trim';
+			} else {
+				// Switch to selection mode  
+				streamDeck.logger.info("TrimClip: Switching to selection mode (A)");
+				await sendKeyWithFocus("a");
+				this.currentMode = 'selection';
 			}
 			
-			streamDeck.logger.info(`TrimClip: Mode toggled, now in ${this.isTrimMode ? 'Trim' : 'Selection'} mode`);
-			
+			streamDeck.logger.info(`TrimClip: Now in ${this.currentMode} mode`);
 		} catch (error) {
 			streamDeck.logger.error("Error toggling trim/selection mode:", error);
-			await ev.action.setTitle("Error!");
-			setTimeout(async () => {
-				await ev.action.setTitle(this.isTrimMode ? "Trim" : "Selection");
-			}, 2000);
 		}
 	}
 } 
