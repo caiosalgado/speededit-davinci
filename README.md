@@ -1,160 +1,266 @@
-# SpeedEdit for DaVinci — Essential Profile for Stream Deck +
+# SpeedEdit for DaVinci — Essential Stream Deck + Plugin
 
-**(macOS-only for now)**
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Platform: macOS](https://img.shields.io/badge/Platform-macOS-blue.svg)](https://www.apple.com/macos/)
+[![Stream Deck SDK](https://img.shields.io/badge/Stream%20Deck-SDK%202.0-purple.svg)](https://docs.elgato.com/streamdeck/sdk/)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-green.svg)](https://nodejs.org/)
 
-Unlock the full power of your Stream Deck + and slash your edit time. SpeedEdit maps every dial and button to the DaVinci shortcuts you use all day, giving you pro-studio fluidity for just US $ 5.
+> Professional Stream Deck + plugin for DaVinci Resolve editors. Transform your Stream Deck into a powerful editing control surface with 4 smart dials and 19 essential buttons.
 
----
+**⚠️ Currently macOS-only** — Windows support planned for future releases.
 
-## Why SpeedEdit?
+![SpeedEdit Demo](./assets/speededit-hero.png)
 
-- **Plug & Play** – install, launch DaVinci, start cutting in seconds.
-- **Edit up to 3 × faster** – fewer clicks, no menu-diving, goodbye mouse fatigue.
-- **Essentials only** – the shortcuts that matter, nothing that doesn't.
-- **Dial power** – four hardware knobs doing things a keyboard never could.
-- **Built for macOS** – engineered and tested exclusively on Mac (Windows support coming later).
+## ✨ Features
 
----
+### 🎛️ **4 Smart Dials (Encoders)**
+- **Zoom Control** — Twist to zoom in/out, press to fit timeline
+- **Playhead Control** — Spin for frame-perfect scrubbing, press for precision mode  
+- **Jump Control** — Turn to hop between cuts, press for edit point selection
+- **Edit Point Dial** — Press to cycle edit modes, twist to navigate edit points
 
-## 🎛️ Smart Dials
+### 🔘 **19 Essential Buttons**
+- **Playback Controls** — J/L/K workflow, Play/Pause, Play Reverse/Forward
+- **Editing Tools** — Cut, Trim Mode Toggle, Delete, Ripple Delete
+- **Smart Selection** — Select clips left/right of playhead across all tracks
+- **Organization** — Move clips up/down between tracks, Magnetic toggle
+- **Advanced** — Ripple Trim Start/End, Disable Clip, Fullscreen Toggle
 
-### **Zoom Control**
-- **Twist**: Zoom in/out (`Cmd +` / `Cmd -`)
-- **Press**: Fit the whole timeline (`Shift + Z`)
-
-### **Playhead Control** 
-- **Spin**: Frame-perfect scrubbing (arrow keys)
-- **Press**: Toggle precision or high-speed mode
-
-### **Jump Control**
-- **Turn**: Hop to next/previous cut (up/down arrows)
-- **Press**: Select nearest edit point for instant trimming (`V`)
-
-### **Edit Point Dial**
-- **Press**: Cycle through edit modes (`U` - Trim In ↔ Trim Out ↔ Roll)
-- **Twist**: Navigate between edit points (`Shift + ,/.`)
+### ⚡ **Speed Benefits**
+- Edit up to **3× faster** with dedicated hardware controls
+- Eliminate mouse fatigue and menu diving
+- Professional workflow optimization
+- Instant access to most-used DaVinci shortcuts
 
 ---
 
-## 🔘 One-tap Buttons
+## 🚀 Quick Start
 
-### **Essential Editing**
-- **Cut Clip** – `Cmd + B` razor-splits at the playhead
-- **Trim Mode / Selection Mode** – Switch between `T` and `A` modes
-- **Enable / Disable Clip** – Mute clips instantly with `D` key
+### Prerequisites
+- **macOS 12+** (Monterey or later)
+- **Stream Deck +** device
+- **DaVinci Resolve** (any version)
+- **Node.js 20+** (for development)
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/caiosalgado/speededit-davinci.git
+   cd speededit-davinci
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Build and install:**
+   ```bash
+   npm run build
+   streamdeck pack com.caio.davinci.sdPlugin
+   open SpeedEdit-for-DaVinci-v0.1.0.streamDeckPlugin
+   ```
+
+4. **Grant accessibility permissions:**
+   - System Settings → Privacy & Security → Accessibility
+   - Add Stream Deck app and enable it ✅
+
+---
+
+## 🛠️ Development
+
+### Development Mode
+```bash
+npm run watch
+```
+This starts the plugin in development mode with hot reloading.
+
+### Building for Distribution
+```bash
+npm run build
+streamdeck pack com.caio.davinci.sdPlugin
+```
+
+### Validation
+```bash
+streamdeck validate com.caio.davinci.sdPlugin
+```
+
+### Project Structure
+```
+├── src/
+│   ├── actions/          # Individual button/dial implementations
+│   ├── utils/            # Shared utilities (keyboard, AppleScript)
+│   └── plugin.ts         # Main plugin entry point
+├── com.caio.davinci.sdPlugin/
+│   ├── manifest.json     # Plugin metadata and configuration
+│   ├── imgs/             # Icons and images
+│   └── bin/              # Compiled JavaScript
+└── package.json          # Dependencies and scripts
+```
+
+---
+
+## 🎯 Complete Button Reference
+
+### **Playback Controls**
+| Button | Shortcut | Function |
+|--------|----------|----------|
+| Play Pause | `Space` | Start/stop playback |
+| Play Forward | `L` | Play forward (multiple presses = faster) |
+| Play Reverse | `J` | Play reverse (multiple presses = faster) |
+
+### **Editing Tools**
+| Button | Shortcut | Function |
+|--------|----------|----------|
+| Cut Clip | `Cmd + B` | Razor split at playhead |
+| Delete Clip | `Delete` | Remove clip (leaves gap) |
+| Ripple Delete | `Shift + Delete` | Remove clip (closes gap) |
+| Trim Mode Toggle | `T` / `A` | Switch between Trim and Selection modes |
+| Disable Clip | `D` | Enable/disable selected clip |
 
 ### **Smart Selection**
-- **Select Left** – Grab every clip before playhead (`Option + Cmd + Y`)
-- **Select Right** – Grab every clip after playhead (`Option + Y`)
-- **Magnetic Toggle** – Turn snapping on/off in real time (`N`)
+| Button | Shortcut | Function |
+|--------|----------|----------|
+| Select Left | `Option + Cmd + Y` | Select all clips before playhead |
+| Select Right | `Option + Y` | Select all clips after playhead |
+| Magnetic Toggle | `N` | Toggle timeline snapping |
 
-### **Quick Organization**
-- **Move Clip Up** – Shuffle clips between tracks (`Option + ↑`)
-- **Move Clip Down** – Shuffle clips between tracks (`Option + ↓`)
+### **Organization**
+| Button | Shortcut | Function |
+|--------|----------|----------|
+| Move Clip Up | `Option + ↑` | Move clip to track above |
+| Move Clip Down | `Option + ↓` | Move clip to track below |
 
-### **Advanced Cutting**
-- **Cut Delete Left** – Lop off unwanted heads (`Cmd + Shift + [`)
-- **Cut Delete Right** – Lop off unwanted tails (`Cmd + Shift + ]`)
+### **Advanced Editing**
+| Button | Shortcut | Function |
+|--------|----------|----------|
+| Ripple Trim Start | `Cmd + Shift + [` | Trim start to playhead |
+| Ripple Trim End | `Cmd + Shift + ]` | Trim end to playhead |
+| Fullscreen Toggle | `Cmd + F` | Toggle fullscreen mode |
+
+### **Smart Dials (Encoders)**
+| Dial | Rotate | Press | Function |
+|------|--------|-------|----------|
+| Zoom Control | `Cmd + +/-` | `Shift + Z` | Zoom timeline / Fit all |
+| Playhead Control | Arrow keys | Toggle mode | Scrub timeline / Precision mode |
+| Jump Control | `↑/↓` | `V` | Jump to cuts / Edit point select |
+| Edit Points | `Shift + ,/.` | `U` | Navigate edits / Cycle edit modes |
 
 ---
 
-## 🎯 Who is it for?
+## 🔧 Technical Implementation
 
-- **YouTubers** posting daily
-- **Post-production pros** who crave speed without €500 control surfaces
-- **Freelancers** editing on laptops who need an ergonomic edge
+### **AppleScript Integration**
+The plugin uses AppleScript to send keyboard commands to DaVinci Resolve:
+
+```typescript
+// Example: Cut clip implementation
+await execAsync(`osascript -e 'tell application "DaVinci Resolve" to activate'`);
+await new Promise(resolve => setTimeout(resolve, 100));
+await execAsync(`osascript -e 'tell application "System Events" to keystroke "b" using command down'`);
+```
+
+### **Key Code Usage**
+For special keys, we use macOS key codes instead of character strings:
+- **Arrow Keys**: Up (126), Down (125), Left (123), Right (124)
+- **Special Chars**: Space (49), Delete (51), Brackets (33, 30)
+
+### **Error Handling**
+All actions include comprehensive error handling and logging:
+```typescript
+try {
+    streamDeck.logger.info("Action executed");
+    // Command execution
+} catch (error) {
+    streamDeck.logger.error("Error:", error);
+}
+```
 
 ---
 
-## ⚡ Ready to edit at the speed of your creativity?
+## 🤝 Contributing
 
-1. **Click Buy now**
-2. **Load the profile** onto your Stream Deck +
-3. **Open DaVinci** on your Mac and feel the flow
+1. **Fork the repository**
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/new-button
+   ```
+3. **Follow the coding standards**
+   - Use TypeScript
+   - Include proper error handling
+   - Add logging with `streamDeck.logger`
+   - Test all functionality
+4. **Submit a pull request**
+
+### **Adding New Buttons**
+1. Create action file in `src/actions/`
+2. Register in `src/plugin.ts`
+3. Add to `manifest.json`
+4. Add icon in `imgs/actions/buttons/`
 
 ---
 
-## 🔧 Installation & Setup
+## 📋 Requirements
 
-### **Prerequisites:**
-- macOS 12+ (Monterey or later)
-- Stream Deck + device
+### **System Requirements**
+- macOS 12.0+ (Monterey)
+- Stream Deck + hardware
 - DaVinci Resolve (any version)
-- Node.js 20+ (for installation)
 
-### **Installation:**
-1. Download and extract the plugin
-2. Run: `npm install`
-3. Run: `npm run watch` 
-4. The plugin appears automatically in Stream Deck
-
-### **⚠️ Important: Accessibility Permissions**
-
-For commands to work, grant accessibility permission to Stream Deck:
-
-1. Open **System Settings** > **Privacy & Security**
-2. Click **Accessibility**
-3. Add **Stream Deck** to authorized apps
-4. Ensure it's checked ✅
-
-### **🎛️ DaVinci Setup (Optional)**
-
-Some shortcuts may need configuration in DaVinci Resolve:
-
-1. Open **DaVinci Resolve** > **Preferences** > **User** > **Keyboard Customization**
-2. Verify these shortcuts if needed:
-   - **Magnetic Toggle**: `N`
-   - **Edit Point Type**: `U`
+### **Development Requirements**
+- Node.js 20+
+- Stream Deck CLI
+- TypeScript knowledge
 
 ---
 
-## 🚀 How to Use
+## 🐛 Troubleshooting
 
-1. Open Stream Deck app
-2. Drag actions from "SpeedEdit for DaVinci" category to your buttons/dials
-3. Open DaVinci Resolve
-4. Start editing at lightning speed! ⚡
+### **Commands don't work**
+1. Verify accessibility permissions for Stream Deck
+2. Ensure DaVinci Resolve is the active application
+3. Check that shortcuts are set to default in DaVinci
 
----
+### **Plugin doesn't load**
+1. Run `streamdeck validate com.caio.davinci.sdPlugin`
+2. Check for compilation errors: `npm run build`
+3. Restart Stream Deck application
 
-## 🔍 Troubleshooting
-
-### **Commands don't work:**
-1. Check accessibility permissions are configured
-2. Ensure DaVinci Resolve is in foreground
-3. Verify shortcuts are correct in DaVinci
-
-### **Plugin doesn't appear:**
-1. Run `npm run watch` in terminal
-2. Restart Stream Deck app
-3. Check for errors in terminal
-
-### **Compilation errors:**
-1. Ensure you have Node.js 20+
-2. Run `npm install` again
-3. Run `npm run build` to check errors
+### **Development Issues**
+1. Ensure Node.js 20+ is installed
+2. Clear node_modules and reinstall: `rm -rf node_modules && npm install`
+3. Check logs in Stream Deck console
 
 ---
 
-## 📝 Technical Notes
+## 📄 License
 
-- **macOS only**: Uses AppleScript for system integration
-- **DaVinci Focus**: DaVinci Resolve must be in foreground
-- **Permissions**: Accessibility permissions required for functionality
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🐛 Support
+## 🙏 Acknowledgments
 
-If you encounter issues, check:
-1. Terminal logs where `npm run watch` is running
-2. Stream Deck console
-3. System permissions
-
----
-
-**SpeedEdit for DaVinci** — the fastest, simplest, most affordable way to super-charge your Stream Deck +.
+- **Elgato** for the Stream Deck SDK
+- **Blackmagic Design** for DaVinci Resolve
+- **TypeScript** community for excellent tooling
 
 ---
 
-*DaVinci Resolve® and Stream Deck® are registered trademarks of their respective owners; this product is independent and not affiliated with either company.* 
+## ⚠️ Disclaimer
+
+*DaVinci Resolve® and Stream Deck® are registered trademarks of their respective owners. This plugin is an independent project and is not affiliated with Blackmagic Design or Elgato.*
+
+---
+
+## 📞 Support
+
+- **Issues**: [GitHub Issues](https://github.com/caiosalgado/speededit-davinci/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/caiosalgado/speededit-davinci/discussions)
+- **Documentation**: [Stream Deck SDK Docs](https://docs.elgato.com/streamdeck/sdk/)
+
+---
+
+**Made with ❤️ for the DaVinci Resolve editing community** 

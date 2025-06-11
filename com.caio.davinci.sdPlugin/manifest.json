@@ -312,7 +312,7 @@
 			]
 		}
 	],
-	"Category": "DaVinci SpeedEdit",
+	"Category": "SpeedEdit for DaVinci",
 	"CategoryIcon": "imgs/plugin/category-icon",
 	"CodePath": "bin/plugin.js",
 	"Description": "Essential Stream Deck + profile for DaVinci Resolve. Unlock pro-studio fluidity with smart dials and one-tap buttons. Edit up to 3x faster with plug & play setup. macOS-only for now.",
