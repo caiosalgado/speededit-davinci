@@ -16,6 +16,12 @@ import { SelectRight } from "./actions/select-right";
 import { SelectLeft } from "./actions/select-left";
 import { CutDeleteRight } from "./actions/cut-delete-right";
 import { CutDeleteLeft } from "./actions/cut-delete-left";
+import { FullscreenToggle } from "./actions/fullscreen-toggle";
+import { PlayReverse } from "./actions/play-reverse";
+import { PlayForward } from "./actions/play-forward";
+import { PlayPause } from "./actions/play-pause";
+import { DeleteClip } from "./actions/delete-clip";
+import { RippleDelete } from "./actions/ripple-delete";
 
 
 // We can enable "trace" logging so that all messages between the Stream Deck, and the plugin are recorded. When storing sensitive information
@@ -37,6 +43,12 @@ streamDeck.actions.registerAction(new SelectRight());
 streamDeck.actions.registerAction(new SelectLeft());
 streamDeck.actions.registerAction(new CutDeleteRight());
 streamDeck.actions.registerAction(new CutDeleteLeft());
+streamDeck.actions.registerAction(new FullscreenToggle());
+streamDeck.actions.registerAction(new PlayReverse());
+streamDeck.actions.registerAction(new PlayForward());
+streamDeck.actions.registerAction(new PlayPause());
+streamDeck.actions.registerAction(new DeleteClip());
+streamDeck.actions.registerAction(new RippleDelete());
 
 
 // Finally, connect to the Stream Deck.

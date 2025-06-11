@@ -237,6 +237,8 @@ await new Promise(resolve => setTimeout(resolve, 100));
 - **Down Arrow**: 125
 - **Left Arrow**: 123
 - **Right Arrow**: 124
+- **Space**: 49
+- **Delete**: 51
 - **Backslash (\\)**: 42
 - **Semicolon (;)**: 41
 - **Quote (')**: 39
@@ -287,5 +289,3 @@ override async onDialRotate(ev: DialRotateEvent) {
 7. **Debug with logs** using `streamDeck.logger`
 
 ---
-
-**Remember**: Dials use `dialRotate` events, buttons use `keyDown` events. Always use Stream Deck logger and check action types! 

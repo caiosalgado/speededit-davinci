@@ -220,6 +220,96 @@
 					"TitleAlignment": "middle"
 				}
 			]
+		},
+		{
+			"Name": "Fullscreen Toggle",
+			"UUID": "com.caio.davinci.fullscreen-toggle",
+			"Icon": "imgs/actions/buttons/fullscreen/icon",
+			"Tooltip": "Toggle fullscreen in DaVinci Resolve (Cmd+F)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/fullscreen/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Play Reverse",
+			"UUID": "com.caio.davinci.play-reverse",
+			"Icon": "imgs/actions/buttons/play-reverse/icon",
+			"Tooltip": "Play reverse in DaVinci Resolve (J key)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/play-reverse/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Play Forward",
+			"UUID": "com.caio.davinci.play-forward",
+			"Icon": "imgs/actions/buttons/play-forward/icon",
+			"Tooltip": "Play forward in DaVinci Resolve (L key)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/play-forward/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Play Pause",
+			"UUID": "com.caio.davinci.play-pause",
+			"Icon": "imgs/actions/buttons/play-pause/icon",
+			"Tooltip": "Play/Pause in DaVinci Resolve (Space key)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/play-pause/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Delete Clip",
+			"UUID": "com.caio.davinci.delete-clip",
+			"Icon": "imgs/actions/buttons/delete-clip/icon",
+			"Tooltip": "Delete selected clip (Delete key)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/delete-clip/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Ripple Delete",
+			"UUID": "com.caio.davinci.ripple-delete",
+			"Icon": "imgs/actions/buttons/ripple-delete/icon",
+			"Tooltip": "Ripple delete selected clip (Shift+Delete)",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/buttons/ripple-delete/icon",
+					"TitleAlignment": "middle"
+				}
+			]
 		}
 	],
 	"Category": "DaVinci SpeedEdit",
